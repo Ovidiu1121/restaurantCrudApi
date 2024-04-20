@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8918324a-32d9-4f9b-a567-955ca63fb7fa": {
+      "ProjectGuid": "8918324a-32d9-4f9b-a567-955ca63fb7fa",
+      "DisplayName": "RestaurantCrudApi",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
