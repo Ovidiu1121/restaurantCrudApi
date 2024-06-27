@@ -10,6 +10,7 @@ namespace RestaurantCrudApi.Mappings
         {
             CreateMap<CreateRestaurantRequest, Restaurant>();
             CreateMap<UpdateRestaurantRequest, Restaurant>();
+            CreateMap<RestaurantDto, Restaurant>().ReverseMap();
         }
 
     }

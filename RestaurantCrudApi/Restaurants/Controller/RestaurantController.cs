@@ -19,13 +19,13 @@ namespace RestaurantCrudApi.Restaurants.Controller
            _restaurantQueryService = restaurantQueryService;
         }
 
-        public override async Task<ActionResult<Restaurant>> CreateRestaurant([FromBody] CreateRestaurantRequest request)
+        public override async Task<ActionResult<RestaurantDto>> CreateRestaurant([FromBody] CreateRestaurantRequest request)
         {
             try
             {
                 var restaurants = await _restaurantCommandService.CreateRestaurant(request);
 
-                return Ok(restaurants);
+                return Created("Restaurantul a fost adaugat",restaurants);
             }
             catch (ItemAlreadyExists ex)
             {
@@ -33,7 +33,7 @@ namespace RestaurantCrudApi.Restaurants.Controller
             }
         }
 
-        public override async Task<ActionResult<Restaurant>> DeleteRestaurant([FromRoute] int id)
+        public override async Task<ActionResult<RestaurantDto>> DeleteRestaurant([FromRoute] int id)
         {
             try
             {
@@ -47,7 +47,33 @@ namespace RestaurantCrudApi.Restaurants.Controller
             }
         }
 
-        public override async Task<ActionResult<IEnumerable<Restaurant>>> GetAll()
+        public override async Task<ActionResult<RestaurantDto>> GetByIdRoute(int id)
+        {
+            try
+            {
+                var restaurants = await _restaurantQueryService.GetById(id);
+                return Ok(restaurants);
+            }
+            catch (ItemDoesNotExist ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        public override async Task<ActionResult<RestaurantDto>> GetByNameRoute(string name)
+        {
+            try
+            {
+                var restaurants = await _restaurantQueryService.GetByName(name);
+                return Ok(restaurants);
+            }
+            catch (ItemDoesNotExist ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        public override async Task<ActionResult<ListRestaurantDto>> GetAll()
         {
             try
             {
@@ -60,7 +86,7 @@ namespace RestaurantCrudApi.Restaurants.Controller
             }
         }
 
-        public override async Task<ActionResult<Restaurant>> GetByLocationRoute([FromRoute] string location)
+        public override async Task<ActionResult<RestaurantDto>> GetByLocationRoute([FromRoute] string location)
         {
             try
             {
@@ -73,7 +99,20 @@ namespace RestaurantCrudApi.Restaurants.Controller
             }
         }
 
-        public override async Task<ActionResult<Restaurant>> UpdateRestaurant([FromRoute] int id, [FromBody] UpdateRestaurantRequest request)
+        public override async Task<ActionResult<RestaurantDto>> GetByRatingRoute(int rating)
+        {
+            try
+            {
+                var restaurants = await _restaurantQueryService.GetByRating(rating);
+                return Ok(restaurants);
+            }
+            catch (ItemDoesNotExist ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        public override async Task<ActionResult<RestaurantDto>> UpdateRestaurant([FromRoute] int id, [FromBody] UpdateRestaurantRequest request)
         {
             try
             {

@@ -13,14 +13,14 @@ namespace RestaurantCrudApi.Restaurants.Service
 
         private IRestaurantRepository _repository;
 
-        public RestaurantCommandService(RestaurantRepository repository)
+        public RestaurantCommandService(IRestaurantRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<Restaurant> CreateRestaurant(CreateRestaurantRequest request)
+        public async Task<RestaurantDto> CreateRestaurant(CreateRestaurantRequest request)
         {
-            Restaurant restaurant = await _repository.GetByLocationAsync(request.Location);
+            RestaurantDto restaurant = await _repository.GetByLocationAsync(request.Location);
 
             if (restaurant!=null)
             {
@@ -31,9 +31,9 @@ namespace RestaurantCrudApi.Restaurants.Service
             return restaurant;
         }
 
-        public async Task<Restaurant> DeleteRestaurant(int id)
+        public async Task<RestaurantDto> DeleteRestaurant(int id)
         {
-            Restaurant restaurant = await _repository.GetByIdAsync(id);
+            RestaurantDto restaurant = await _repository.GetByIdAsync(id);
 
             if (restaurant==null)
             {
@@ -44,9 +44,9 @@ namespace RestaurantCrudApi.Restaurants.Service
             return restaurant;
         }
 
-        public async Task<Restaurant> UpdateRestaurant(int id, UpdateRestaurantRequest request)
+        public async Task<RestaurantDto> UpdateRestaurant(int id, UpdateRestaurantRequest request)
         {
-            Restaurant restaurant = await _repository.GetByIdAsync(id);
+            RestaurantDto restaurant = await _repository.GetByIdAsync(id);
 
             if (restaurant==null)
             {

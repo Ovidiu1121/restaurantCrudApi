@@ -1,4 +1,5 @@
 ﻿
+using RestaurantCrudApi.Dto;
 using RestaurantCrudApi.Restaurants.Model;
 using RestaurantCrudApi.Restaurants.Repository;
 using RestaurantCrudApi.Restaurants.Repository.interfaces;
@@ -12,16 +13,16 @@ namespace RestaurantCrudApi.Restaurants.Service
     {
         private IRestaurantRepository _repository;
 
-        public RestaurantQueryService(RestaurantRepository repository)
+        public RestaurantQueryService(IRestaurantRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Restaurant>> GetAllRestaurants()
+        public async Task<ListRestaurantDto> GetAllRestaurants()
         {
-            IEnumerable<Restaurant> restaurants = await _repository.GetAllAsync();
+            ListRestaurantDto restaurants = await _repository.GetAllAsync();
 
-            if (restaurants.Count().Equals(0))
+            if (restaurants.restaurantList.Count().Equals(0))
             {
                 throw new ItemDoesNotExist(Constants.NO_RESTAURANTS_EXIST);
             }
@@ -29,9 +30,9 @@ namespace RestaurantCrudApi.Restaurants.Service
             return restaurants;
         }
 
-        public async Task<Restaurant> GetById(int id)
+        public async Task<RestaurantDto> GetById(int id)
         {
-            Restaurant restaurants = await _repository.GetByIdAsync(id);
+            RestaurantDto restaurants = await _repository.GetByIdAsync(id);
 
             if (restaurants == null)
             {
@@ -41,9 +42,33 @@ namespace RestaurantCrudApi.Restaurants.Service
             return restaurants;
         }
 
-        public async Task<Restaurant> GetByLocation(string location)
+        public async Task<RestaurantDto> GetByName(string name)
         {
-            Restaurant restaurants = await _repository.GetByLocationAsync(location);
+            RestaurantDto restaurants = await _repository.GetByNameAsync(name);
+
+            if (restaurants == null)
+            {
+                throw new ItemDoesNotExist(Constants.RESTAURANT_DOES_NOT_EXIST);
+            }
+
+            return restaurants;
+        }
+
+        public async Task<RestaurantDto> GetByRating(int rating)
+        {
+            RestaurantDto restaurants = await _repository.GetByRatingAsync(rating);
+
+            if (restaurants == null)
+            {
+                throw new ItemDoesNotExist(Constants.RESTAURANT_DOES_NOT_EXIST);
+            }
+
+            return restaurants;
+        }
+
+        public async Task<RestaurantDto> GetByLocation(string location)
+        {
+            RestaurantDto restaurants = await _repository.GetByLocationAsync(location);
 
             if (restaurants == null)
             {

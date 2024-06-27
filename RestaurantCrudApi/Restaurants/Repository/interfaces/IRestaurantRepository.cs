@@ -5,11 +5,13 @@ namespace RestaurantCrudApi.Restaurants.Repository.interfaces
 {
     public interface IRestaurantRepository
     {
-        Task<IEnumerable<Restaurant>> GetAllAsync();
-        Task<Restaurant> GetByIdAsync(int id);
-        Task<Restaurant> GetByLocationAsync(string location);
-        Task<Restaurant> CreateRestaurant(CreateRestaurantRequest request);
-        Task<Restaurant> UpdateRestaurant(int id, UpdateRestaurantRequest request);
-        Task<Restaurant> DeleteRestaurantById(int id);
+        Task<ListRestaurantDto> GetAllAsync();
+        Task<RestaurantDto> GetByIdAsync(int id);
+        Task<RestaurantDto> GetByNameAsync(string name);
+        Task<RestaurantDto> GetByLocationAsync(string location);
+        Task<RestaurantDto> GetByRatingAsync(int rating);
+        Task<RestaurantDto> CreateRestaurant(CreateRestaurantRequest request);
+        Task<RestaurantDto> UpdateRestaurant(int id, UpdateRestaurantRequest request);
+        Task<RestaurantDto> DeleteRestaurantById(int id);
     }
 }

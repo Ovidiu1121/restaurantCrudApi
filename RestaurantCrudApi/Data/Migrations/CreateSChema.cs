@@ -7,10 +7,10 @@ namespace RestaurantCrudApi.Data.Migrations
     {
         public override void Up()
         {
-            Create.Table("movie")
+            Create.Table("restaurant")
                    .WithColumn("id").AsInt32().PrimaryKey().Identity()
-                    .WithColumn("title").AsString(128).NotNullable()
-                     .WithColumn("duration").AsString(128).NotNullable()
+                    .WithColumn("name").AsString(128).NotNullable()
+                     .WithColumn("location").AsString(128).NotNullable()
                       .WithColumn("rating").AsInt32().NotNullable();
         }
         public override void Down()

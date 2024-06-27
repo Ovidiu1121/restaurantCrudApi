@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "5f6a4819-0fcd-4b08-8216-4648af92a253",
+		"name": "restaurant_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33660681"
+	},
+	"item": [
+		{
+			"name": "GetAllRestaurants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7085/api/v1/Restaurant/all",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7085",
+					"path": [
+						"api",
+						"v1",
+						"Restaurant",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByLocation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7085/api/v1/Restaurant/Sibiu",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7085",
+					"path": [
+						"api",
+						"v1",
+						"Restaurant",
+						"Sibiu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POSTCreateRestaurant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Dabo\",\r\n  \"location\": \"Arad\",\r\n  \"rating\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7085/api/v1/Restaurant/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7085",
+					"path": [
+						"api",
+						"v1",
+						"Restaurant",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUTUpdateRestaurant",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rating\": 32\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7085/api/v1/Restaurant/update/5",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7085",
+					"path": [
+						"api",
+						"v1",
+						"Restaurant",
+						"update",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteRestaurant",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7085/api/v1/Restaurant/delete/5",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7085",
+					"path": [
+						"api",
+						"v1",
+						"Restaurant",
+						"delete",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

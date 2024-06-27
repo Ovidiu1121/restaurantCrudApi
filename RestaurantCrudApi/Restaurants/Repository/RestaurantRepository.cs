@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RestaurantCrudApi.Data;
 using RestaurantCrudApi.Dto;
 using RestaurantCrudApi.Restaurants.Model;
 using RestaurantCrudApi.Restaurants.Repository.interfaces;
-using System.Data.Entity;
+
 
 namespace RestaurantCrudApi.Restaurants.Repository
 {
@@ -18,7 +19,14 @@ namespace RestaurantCrudApi.Restaurants.Repository
             _mapper = mapper;
         }
 
-        public async Task<Restaurant> CreateRestaurant(CreateRestaurantRequest request)
+        public async Task<RestaurantDto> GetByRatingAsync(int rating)
+        {
+            var restaurant = await _context.Restaurants.Where(r => r.Rating == rating).FirstOrDefaultAsync();
+            
+            return _mapper.Map<RestaurantDto>(restaurant);
+        }
+
+        public async Task<RestaurantDto> CreateRestaurant(CreateRestaurantRequest request)
         {
             var restaurants = _mapper.Map<Restaurant>(request);
 
@@ -26,10 +34,10 @@ namespace RestaurantCrudApi.Restaurants.Repository
 
             await _context.SaveChangesAsync();
 
-            return restaurants;
+            return _mapper.Map<RestaurantDto>(restaurants);
         }
 
-        public async Task<Restaurant> DeleteRestaurantById(int id)
+        public async Task<RestaurantDto> DeleteRestaurantById(int id)
         {
             var restaurants = await _context.Restaurants.FindAsync(id);
 
@@ -37,25 +45,43 @@ namespace RestaurantCrudApi.Restaurants.Repository
 
             await _context.SaveChangesAsync();
 
-            return restaurants;
+            return _mapper.Map<RestaurantDto>(restaurants);
         }
 
-        public async Task<IEnumerable<Restaurant>> GetAllAsync()
+        public async Task<ListRestaurantDto> GetAllAsync()
         {
-            return await _context.Restaurants.ToListAsync();
+            List<Restaurant> result = await _context.Restaurants.ToListAsync();
+            
+            ListRestaurantDto listRestaurantrDto = new ListRestaurantDto()
+            {
+                restaurantList = _mapper.Map<List<RestaurantDto>>(result)
+            };
+
+            return listRestaurantrDto;
         }
 
-        public async Task<Restaurant> GetByIdAsync(int id)
+        public async Task<RestaurantDto> GetByIdAsync(int id)
         {
-            return await _context.Restaurants.FirstOrDefaultAsync(obj => obj.Id.Equals(id));
+            var restaurant = await _context.Restaurants.Where(r => r.Id == id).FirstOrDefaultAsync();
+            
+            return _mapper.Map<RestaurantDto>(restaurant);
         }
 
-        public async Task<Restaurant> GetByLocationAsync(string location)
+        public async Task<RestaurantDto> GetByNameAsync(string name)
         {
-            return await _context.Restaurants.FirstOrDefaultAsync(obj => obj.Location.Equals(location));
+            var restaurant = await _context.Restaurants.Where(r => r.Name.Equals(name)).FirstOrDefaultAsync();
+            
+            return _mapper.Map<RestaurantDto>(restaurant);
         }
 
-        public async Task<Restaurant> UpdateRestaurant(int id, UpdateRestaurantRequest request)
+        public async Task<RestaurantDto> GetByLocationAsync(string location)
+        {
+            var restaurant = await _context.Restaurants.Where(r => r.Location.Equals(location)).FirstOrDefaultAsync();
+            
+            return _mapper.Map<RestaurantDto>(restaurant);
+        }
+
+        public async Task<RestaurantDto> UpdateRestaurant(int id, UpdateRestaurantRequest request)
         {
             var restaurants = await _context.Restaurants.FindAsync(id);
 
@@ -67,7 +93,7 @@ namespace RestaurantCrudApi.Restaurants.Repository
 
             await _context.SaveChangesAsync();
 
-            return restaurants;
+            return _mapper.Map<RestaurantDto>(restaurants);
         }
     }
 }

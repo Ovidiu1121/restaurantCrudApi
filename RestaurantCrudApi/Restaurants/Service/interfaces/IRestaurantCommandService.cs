@@ -5,9 +5,8 @@ namespace RestaurantCrudApi.Restaurants.Service.interfaces
 {
     public interface IRestaurantCommandService
     {
-        Task<Restaurant> CreateRestaurant(CreateRestaurantRequest request);
-        Task<Restaurant> UpdateRestaurant(int id, UpdateRestaurantRequest request);
-        Task<Restaurant> DeleteRestaurant(int id);
-
+        Task<RestaurantDto> CreateRestaurant(CreateRestaurantRequest request);
+        Task<RestaurantDto> UpdateRestaurant(int id, UpdateRestaurantRequest request);
+        Task<RestaurantDto> DeleteRestaurant(int id);
     }
 }

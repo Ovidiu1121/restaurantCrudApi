@@ -1,11 +1,14 @@
-﻿using RestaurantCrudApi.Restaurants.Model;
+﻿using RestaurantCrudApi.Dto;
+using RestaurantCrudApi.Restaurants.Model;
 
 namespace RestaurantCrudApi.Restaurants.Service.interfaces
 {
     public interface IRestaurantQueryService
     {
-        Task<IEnumerable<Restaurant>> GetAllRestaurants();
-        Task<Restaurant> GetByLocation(string location);
-        Task<Restaurant> GetById(int id);
+        Task<ListRestaurantDto> GetAllRestaurants();
+        Task<RestaurantDto> GetByLocation(string location);
+        Task<RestaurantDto> GetById(int id);
+        Task<RestaurantDto> GetByName(string name);
+        Task<RestaurantDto> GetByRating(int rating);
     }
 }
